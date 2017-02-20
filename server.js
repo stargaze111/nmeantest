@@ -28,15 +28,25 @@ app.get('*', (req, res) => {
  * Get port from environment and store in Express.
  */
 const port = process.env.PORT || '3000';
-app.set('port', port);
-app.set('host','0.0.0.0');
+
 
 /**
  * Create HTTP server.
  */
 const server = http.createServer(app);
 
+
+var server_port = process.env.YOUR_PORT || process.env.PORT || '3000';
+var server_host = process.env.YOUR_HOST || '0.0.0.0';
+app.set('port', server_port);
+app.set('host', server_host);
+
+
+server.listen(server_port, server_host, function() {
+    console.log('Listening on port %d', server_port);
+});
+
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+//server.listen(port, () => console.log(`API running on localhost:${port}`));
