@@ -29,6 +29,7 @@ app.get('*', (req, res) => {
  */
 const port = process.env.PORT || '3000';
 app.set('port', port);
+app.set('host','0.0.0.0');
 
 /**
  * Create HTTP server.
