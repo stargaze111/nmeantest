@@ -43,7 +43,9 @@
     "ts-node": "1.2.1",
     "tslint": "3.13.0",
     "typescript": "~2.0.3",
-    "webdriver-manager": "10.2.5"    
+    "webdriver-manager": "10.2.5",
+    "mongodb":"",
+    "mongoose":""
   },
   "devDependencies": {
     
