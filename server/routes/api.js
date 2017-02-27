@@ -9,6 +9,8 @@ mongoose.set('debug', true); // turn on debug
 
 var Inventory     = require('../../src/app/models/inventory');
 var Shopper     = require('../../src/app/models/shopper');
+var Cart     = require('../../src/app/models/cart');
+var WishList     = require('../../src/app/models/wishList');
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
@@ -120,7 +122,7 @@ router.route('/shopper')
     // create a shopper (accessed at POST http://localhost:8080/api/shoppers)
     .post(function(req, res) {
 
-        var shopper = new shopper();      // create a new instance of the shopper model
+        var shopper = new Shopper();      // create a new instance of the shopper model
         shopper.firstName = req.body.firstName;
         shopper.lastName = req.body.lastName;
         shopper.email = req.body.email;
@@ -254,7 +256,7 @@ router.route('/cart')
     // create a shopper (accessed at POST http://localhost:8080/api/shoppers)
     .post(function(req, res) {
 
-        var cart = new cart();      // create a new instance of the shopper model
+        var cart = new Cart();      // create a new instance of the shopper model
         cart.shopperCrn = req.body.shopperCrn;
         cart.itemBarcode = req.body.itemBarcode;
         cart.itemName = req.body.itemName;
@@ -339,7 +341,7 @@ router.route('/wishList')
     // create a shopper (accessed at POST http://localhost:8080/api/wishLists)
     .post(function(req, res) {
 
-        var wishList = new wishList();      // create a new instance of the shopper model
+        var wishList = new WishList();      // create a new instance of the shopper model
         wishList.shopperCrn = req.body.shopperCrn;
         wishList.itemBarcode = req.body.itemBarcode;
         wishList.itemName = req.body.itemName;
