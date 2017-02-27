@@ -298,7 +298,7 @@ router.route('/cart/:shopperCrn')
     .put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        Cart.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, shopper) {
+        Cart.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, cart) {
 
             if (err)
                 res.send(err);
@@ -378,7 +378,7 @@ router.route('/wishList/:shopperCrn')
     .put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        WishList.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, shopper) {
+        WishList.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
 
             if (err)
                 res.send(err);
