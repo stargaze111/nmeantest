@@ -10,7 +10,8 @@ mongoose.set('debug', true); // turn on debug
 var Inventory     = require('../../src/app/models/inventory');
 var Shopper     = require('../../src/app/models/shopper');
 var Cart     = require('../../src/app/models/cart');
-var WishList     = require('../../src/app/models/wishList');
+var WishList     = require('../../src/app/models/wishlist');
+
 
 // middleware to use for all requests
 router.use(function(req, res, next) {
