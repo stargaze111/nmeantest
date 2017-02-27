@@ -45,7 +45,8 @@
     "typescript": "~2.0.3",
     "webdriver-manager": "10.2.5",
     "mongodb":"",
-    "mongoose":""
+    "mongoose":"",
+    "mongoose-sequence-plugin":""
   },
   "devDependencies": {
     

@@ -22,6 +22,11 @@ app.use('/api', api);
 app.use('/', api);
 app.use('/bears', api);
 app.use('/bears/:bear_id', api);
+app.use('/inventory', api);
+app.use('/inventory/:barcode', api);
+app.use('/shopper', api);
+app.use('/shopper/:email', api);
+app.use('/shopper/:crn', api);
 app.use('/posts', api);
 
 // Catch all other routes and return the index file
