@@ -138,7 +138,7 @@ router.route('/shopper')
             if (err)
                 res.send(err);
 
-            res.json({ message: 'shopper Item created!' });
+            res.json({ message: 'shopper Item created!',crn:shopper.crn });
         });
 
     })
