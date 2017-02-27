@@ -18,14 +18,6 @@ var ShopperSchema   = new Schema({
 
 
 //activate id generator plugin
-SampleSchema.plugin(sequenceGenerator, {
-    field: 'code',
-    startAt: '99-ZX',
-    prefix: 'MNH-',
-    maxSaveRetries: 2
-});
-
-//activate id generator plugin
 ShopperSchema.plugin(sequenceGenerator, {
     field: 'crn',
     startAt: '99-ZX',
