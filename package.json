@@ -46,7 +46,8 @@
     "webdriver-manager": "10.2.5",
     "mongodb":"",
     "mongoose":"",
-    "mongoose-sequence-plugin":""
+    "mongoose-sequence-plugin":"",
+    "crypto":""
   },
   "devDependencies": {
     
