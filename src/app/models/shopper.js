@@ -25,4 +25,4 @@ ShopperSchema.plugin(sequenceGenerator, {
     maxSaveRetries: 2
 });
 
-module.exports = mongoose.model('ShopperSchema', ShopperSchema);
+module.exports = mongoose.model('Shopper', ShopperSchema);

@@ -115,7 +115,6 @@ router.route('/inventory/:barcode')
 
 
 //shopper details
-
 router.route('/shopper')
 
     // create a shopper (accessed at POST http://localhost:8080/api/shoppers)
@@ -246,5 +245,176 @@ router.route('/shopper/:email')
 	            res.json({ message: 'Successfully deleted' });
 	        });
 	    });
+
+
+
+//cart details
+router.route('/cart')
+
+    // create a shopper (accessed at POST http://localhost:8080/api/shoppers)
+    .post(function(req, res) {
+
+        var cart = new cart();      // create a new instance of the shopper model
+        cart.shopperCrn = req.body.shopperCrn;
+        cart.itemBarcode = req.body.itemBarcode;
+        cart.itemName = req.body.itemName;
+        cart.itemDescription = req.body.itemDescription;
+        cart.itemImageUrl = req.body.itemImageUrl;
+        cart.itemPrice = req.body.itemPrice;
+        cart.itemCurrency = req.body.itemCurrency;
+        cart.itemStatus = req.body.itemStatus;
+
+
+        // save the shopper and check for errors
+        cart.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Cart Item created!' });
+        });
+
+    })
+    .get(function(req, res) {
+
+		// get all the shoppers (accessed at GET http://localhost:8080/api/carts)
+        cart.find(function(err, carts) {
+            if (err)
+                res.send(err);
+
+            res.json(carts);
+        });
+    });
+
+router.route('/cart/:shopperCrn')
+    // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
+    .get(function(req, res) {
+        cart.find({"shopperCrn":req.params.shopperCrn}, function(err, shopper) {
+            if (err)
+                res.send(err);
+            res.json(cart);
+        });
+    })
+    .put(function(req, res) {
+
+        // use our shopper model to find the shopper we want
+        cart.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, shopper) {
+
+            if (err)
+                res.send(err);
+
+	    cart.itemName = req.body.itemName;
+        cart.itemDescription = req.body.itemDescription;
+        cart.itemImageUrl = req.body.itemImageUrl;
+        cart.itemPrice = req.body.itemPrice;
+        cart.itemCurrency = req.body.itemCurrency;
+        cart.itemStatus = req.body.itemStatus;
+
+            // save the shopper
+            cart.save(function(err) {
+                if (err)
+                    res.send(err);
+
+                res.json({ message: 'Cart updated!' });
+            });
+
+        });
+    })
+    .delete(function(req, res) {
+	        cart.remove({
+	            "shopperCrn": req.params.shopperCrn,
+	            "itemBarcode": req.params.itemBarcode
+	        }, function(err, shopper) {
+	            if (err)
+	                res.send(err);
+
+	            res.json({ message: 'Cart successfully deleted' });
+	        });
+	    });
+
+
+
+//wishList details
+router.route('/wishList')
+
+    // create a shopper (accessed at POST http://localhost:8080/api/wishLists)
+    .post(function(req, res) {
+
+        var wishList = new wishList();      // create a new instance of the shopper model
+        wishList.shopperCrn = req.body.shopperCrn;
+        wishList.itemBarcode = req.body.itemBarcode;
+        wishList.itemName = req.body.itemName;
+        wishList.itemDescription = req.body.itemDescription;
+        wishList.itemImageUrl = req.body.itemImageUrl;
+        wishList.itemPrice = req.body.itemPrice;
+        wishList.itemCurrency = req.body.itemCurrency;
+        wishList.itemStatus = req.body.itemStatus;
+
+
+        // save the shopper and check for errors
+        wishList.save(function(err) {
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'WishList Item created!' });
+        });
+
+    })
+    .get(function(req, res) {
+
+		// get all the shoppers (accessed at GET http://localhost:8080/api/wishList)
+        wishList.find(function(err, wishLists) {
+            if (err)
+                res.send(err);
+
+            res.json(wishLists);
+        });
+    });
+
+router.route('/wishList/:shopperCrn')
+    // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
+    .get(function(req, res) {
+        wishList.find({"shopperCrn":req.params.shopperCrn}, function(err, shopper) {
+            if (err)
+                res.send(err);
+            res.json(cart);
+        });
+    })
+    .put(function(req, res) {
+
+        // use our shopper model to find the shopper we want
+        wishList.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, shopper) {
+
+            if (err)
+                res.send(err);
+
+	    wishList.itemName = req.body.itemName;
+        wishList.itemDescription = req.body.itemDescription;
+        wishList.itemImageUrl = req.body.itemImageUrl;
+        wishList.itemPrice = req.body.itemPrice;
+        wishList.itemCurrency = req.body.itemCurrency;
+        wishList.itemStatus = req.body.itemStatus;
+
+            // save the shopper
+            wishList.save(function(err) {
+                if (err)
+                    res.send(err);
+
+                res.json({ message: 'WishList updated!' });
+            });
+
+        });
+    })
+    .delete(function(req, res) {
+	        wishList.remove({
+	            "shopperCrn": req.params.shopperCrn,
+	            "itemBarcode": req.params.itemBarcode
+	        }, function(err, shopper) {
+	            if (err)
+	                res.send(err);
+
+	            res.json({ message: 'WishList successfully deleted' });
+	        });
+	    });
+
 
 module.exports = router;
