@@ -130,7 +130,10 @@ router.route('/shopper')
         shopper.mobilePhone = req.body.mobilePhone;
         shopper.gender = req.body.gender;
         shopper.address = req.body.address;
+        shopper.password = req.body.password;
 
+        var crypto     = require('crypto');
+        shopper.password = crypto.createHash('md5').update(shopper.password).digest("hex");
 
 
         // save the shopper and check for errors
@@ -202,7 +205,7 @@ router.route('/shopper/:crn')
 	    });
 
 
-router.route('/shopper/:email')
+router.route('/shopper/email/:email')
 
     // get the shopper with that id (accessed at GET http://localhost:8080/api/shoppers/:email)
     .get(function(req, res) {

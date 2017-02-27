@@ -25,4 +25,11 @@ ShopperSchema.plugin(sequenceGenerator, {
     maxSaveRetries: 2
 });
 
+
+ShopperSchema.schema.path('email').validate(function (value, respond) {
+    User.findOne({ email: value }, function (err, user) {
+        if(user) respond(false);
+    });
+}, 'This email address is already registered');
+
 module.exports = mongoose.model('Shopper', ShopperSchema);
