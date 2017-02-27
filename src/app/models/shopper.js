@@ -26,7 +26,7 @@ ShopperSchema.plugin(sequenceGenerator, {
 });
 
 
-ShopperSchema.schema.path('email').validate(function (value, respond) {
+ShopperSchema.path('email').validate(function (value, respond) {
     User.findOne({ email: value }, function (err, user) {
         if(user) respond(false);
     });
