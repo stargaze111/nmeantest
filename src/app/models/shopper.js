@@ -6,8 +6,6 @@ mongoose.set('debug', true); // turn on debug
 
 var sequenceGenerator = require('mongoose-sequence-plugin');
 
-
-
 var Schema       = mongoose.Schema;
 
 var ShopperSchema   = new Schema({
