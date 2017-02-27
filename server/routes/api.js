@@ -157,7 +157,7 @@ router.route('/shopper/:crn')
 
     // get the shopper with that id (accessed at GET http://localhost:8080/api/shoppers/:crn)
     .get(function(req, res) {
-        shopper.find({"crn":req.params.crn}, function(err, shopper) {
+        Shopper.find({"crn":req.params.crn}, function(err, shopper) {
             if (err)
                 res.send(err);
             res.json(shopper);
@@ -167,7 +167,7 @@ router.route('/shopper/:crn')
     .put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        shopper.find({"crn":req.params.crn}, function(err, shopper) {
+        Shopper.find({"crn":req.params.crn}, function(err, shopper) {
 
             if (err)
                 res.send(err);
@@ -191,7 +191,7 @@ router.route('/shopper/:crn')
     })
 
     .delete(function(req, res) {
-	        shopper.remove({
+	        Shopper.remove({
 	            _id: req.params.crn
 	        }, function(err, shopper) {
 	            if (err)
@@ -206,7 +206,7 @@ router.route('/shopper/:email')
 
     // get the shopper with that id (accessed at GET http://localhost:8080/api/shoppers/:email)
     .get(function(req, res) {
-        shopper.find({"email":req.params.email}, function(err, shopper) {
+        Shopper.find({"email":req.params.email}, function(err, shopper) {
             if (err)
                 res.send(err);
             res.json(shopper);
@@ -216,7 +216,7 @@ router.route('/shopper/:email')
     .put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        shopper.find({"email":req.params.email}, function(err, shopper) {
+        Shopper.find({"email":req.params.email}, function(err, shopper) {
 
             if (err)
                 res.send(err);
@@ -239,7 +239,7 @@ router.route('/shopper/:email')
     })
 
     .delete(function(req, res) {
-	        shopper.remove({
+	        Shopper.remove({
 	            _id: req.params.email
 	        }, function(err, shopper) {
 	            if (err)
@@ -280,7 +280,7 @@ router.route('/cart')
     .get(function(req, res) {
 
 		// get all the shoppers (accessed at GET http://localhost:8080/api/carts)
-        cart.find(function(err, carts) {
+        Cart.find(function(err, carts) {
             if (err)
                 res.send(err);
 
@@ -291,7 +291,7 @@ router.route('/cart')
 router.route('/cart/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        cart.find({"shopperCrn":req.params.shopperCrn}, function(err, shopper) {
+        Cart.find({"shopperCrn":req.params.shopperCrn}, function(err, shopper) {
             if (err)
                 res.send(err);
             res.json(cart);
@@ -300,7 +300,7 @@ router.route('/cart/:shopperCrn')
     .put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        cart.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, shopper) {
+        Cart.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, shopper) {
 
             if (err)
                 res.send(err);
@@ -323,7 +323,7 @@ router.route('/cart/:shopperCrn')
         });
     })
     .delete(function(req, res) {
-	        cart.remove({
+	        Cart.remove({
 	            "shopperCrn": req.params.shopperCrn,
 	            "itemBarcode": req.params.itemBarcode
 	        }, function(err, shopper) {
@@ -365,7 +365,7 @@ router.route('/wishList')
     .get(function(req, res) {
 
 		// get all the shoppers (accessed at GET http://localhost:8080/api/wishList)
-        wishList.find(function(err, wishLists) {
+        WishList.find(function(err, wishLists) {
             if (err)
                 res.send(err);
 
@@ -376,7 +376,7 @@ router.route('/wishList')
 router.route('/wishList/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        wishList.find({"shopperCrn":req.params.shopperCrn}, function(err, shopper) {
+        WishList.find({"shopperCrn":req.params.shopperCrn}, function(err, shopper) {
             if (err)
                 res.send(err);
             res.json(cart);
@@ -385,7 +385,7 @@ router.route('/wishList/:shopperCrn')
     .put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        wishList.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, shopper) {
+        WishList.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, shopper) {
 
             if (err)
                 res.send(err);
@@ -408,7 +408,7 @@ router.route('/wishList/:shopperCrn')
         });
     })
     .delete(function(req, res) {
-	        wishList.remove({
+	        WishList.remove({
 	            "shopperCrn": req.params.shopperCrn,
 	            "itemBarcode": req.params.itemBarcode
 	        }, function(err, shopper) {
