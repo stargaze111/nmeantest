@@ -47,7 +47,8 @@
     "mongodb":"",
     "mongoose":"",
     "mongoose-sequence-plugin":"",
-    "crypto":""
+    "crypto":"",
+    "group-array":""
   },
   "devDependencies": {
     

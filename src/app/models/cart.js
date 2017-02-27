@@ -4,6 +4,7 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var CartSchema   = new Schema({
+	cartId : String,
 	shopperCrn : String,
 	shopperId : String,
     itemBarcode : String,

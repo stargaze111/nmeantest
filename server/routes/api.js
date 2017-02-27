@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-
+var groupArray = require('group-array');
 var mongoose     = require('mongoose');
 
 mongoose.connect('mongodb://heroku_k8bk6pcl:2qrvt46ca4ol77cog511lhp00v@ds157469.mlab.com:57469/heroku_k8bk6pcl');
@@ -148,7 +148,7 @@ router.route('/shopper')
     .get(function(req, res) {
 
 		// get all the shoppers (accessed at GET http://localhost:8080/api/shoppers)
-        shopper.find(function(err, shoppers) {
+        Shopper.find(function(err, shoppers) {
             if (err)
                 res.send(err);
 
@@ -279,25 +279,20 @@ router.route('/cart')
             res.json({ message: 'Cart Item created!' });
         });
 
-    })
-    .get(function(req, res) {
-
-		// get all the shoppers (accessed at GET http://localhost:8080/api/carts)
-        Cart.find(function(err, carts) {
-            if (err)
-                res.send(err);
-
-            res.json(carts);
-        });
     });
+
 
 router.route('/cart/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        Cart.find({"shopperCrn":req.params.shopperCrn}, function(err, shopper) {
+        Cart.find({"shopperCrn":req.params.shopperCrn}, function(err, items) {
             if (err)
                 res.send(err);
-            res.json(cart);
+
+            let cartItems = groupArray(items, 'seller');
+
+            res.json(cartItems);
+
         });
     })
     .put(function(req, res) {
@@ -364,25 +359,20 @@ router.route('/wishList')
             res.json({ message: 'WishList Item created!' });
         });
 
-    })
-    .get(function(req, res) {
-
-		// get all the shoppers (accessed at GET http://localhost:8080/api/wishList)
-        WishList.find(function(err, wishLists) {
-            if (err)
-                res.send(err);
-
-            res.json(wishLists);
-        });
     });
 
 router.route('/wishList/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        WishList.find({"shopperCrn":req.params.shopperCrn}, function(err, shopper) {
+        WishList.find({"shopperCrn":req.params.shopperCrn}, function(err, items) {
             if (err)
                 res.send(err);
-            res.json(cart);
+
+
+            let cartItems = groupArray(items, 'seller');
+
+            res.json(cartItems);
+
         });
     })
     .put(function(req, res) {
