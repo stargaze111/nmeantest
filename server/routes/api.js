@@ -289,7 +289,7 @@ router.route('/cart/:shopperCrn')
             if (err)
                 res.send(err);
 
-            let cartItems = groupArray(items, 'seller');
+            let cartItems = groupArray(items, 'seller.name');
 
             res.json(cartItems);
 
@@ -369,7 +369,7 @@ router.route('/wishList/:shopperCrn')
                 res.send(err);
 
 
-            let cartItems = groupArray(items, 'seller');
+            let cartItems = groupArray(items, 'seller.name');
 
             res.json(cartItems);
 
