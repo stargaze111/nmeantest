@@ -12,7 +12,8 @@ var WishListItemSchema   = new Schema({
     itemImageUrl : String,
     itemPrice : String,
     itemCurrency : String,
-    itemStatus : String
+    itemStatus : String,
+    itemShipping : String
 });
 
 module.exports = mongoose.model('WishListItem', WishListItemSchema);

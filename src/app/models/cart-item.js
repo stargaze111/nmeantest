@@ -13,6 +13,7 @@ var CartItemSchema   = new Schema({
     itemPrice : String,
     itemCurrency : String,
     itemStatus : String,
+    itemShipping : String
 });
 
 module.exports = mongoose.model('CartItem', CartItemSchema);
