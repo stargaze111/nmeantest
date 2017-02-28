@@ -9,8 +9,8 @@ mongoose.set('debug', true); // turn on debug
 
 var Inventory     = require('../../src/app/models/inventory');
 var Shopper     = require('../../src/app/models/shopper');
-var Cart     = require('../../src/app/models/cart');
-var WishList     = require('../../src/app/models/wishlist');
+var CartItem     = require('../../src/app/models/cart-item');
+var WishListItem     = require('../../src/app/models/wishlist-item');
 
 
 // middleware to use for all requests
@@ -260,19 +260,19 @@ router.route('/cart')
     // create a shopper (accessed at POST http://localhost:8080/api/shoppers)
     .post(function(req, res) {
 
-        var cart = new Cart();      // create a new instance of the shopper model
-        cart.shopperCrn = req.body.shopperCrn;
-        cart.itemBarcode = req.body.itemBarcode;
-        cart.itemName = req.body.itemName;
-        cart.itemDescription = req.body.itemDescription;
-        cart.itemImageUrl = req.body.itemImageUrl;
-        cart.itemPrice = req.body.itemPrice;
-        cart.itemCurrency = req.body.itemCurrency;
-        cart.itemStatus = req.body.itemStatus;
+        var cartItem = new CartItem();      // create a new instance of the shopper model
+        cartItem.shopperCrn = req.body.shopperCrn;
+        cartItem.barcode = req.body.item.barcode;
+        cartItem.name = req.body.item.name;
+        cartItem.description = req.body.item.description;
+        cartItem.thumb = req.body.item.thumb;
+        cartItem.price = req.body.item.price;
+        cartItem.currency = req.body.item.currency;
+        cartItem.status = req.body.item.status;
 
 
         // save the shopper and check for errors
-        cart.save(function(err) {
+        cartItem.save(function(err) {
             if (err)
                 res.send(err);
 
@@ -285,7 +285,7 @@ router.route('/cart')
 router.route('/cart/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        Cart.find({"shopperCrn":req.params.shopperCrn}, function(err, items) {
+        CartItem.find({"shopperCrn":req.params.shopperCrn}, function(err, items) {
             if (err)
                 res.send(err);
 
@@ -296,20 +296,22 @@ router.route('/cart/:shopperCrn')
     .put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        Cart.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, cart) {
+        CartItem.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, cart) {
 
             if (err)
                 res.send(err);
 
-	    cart.itemName = req.body.itemName;
-        cart.itemDescription = req.body.itemDescription;
-        cart.itemImageUrl = req.body.itemImageUrl;
-        cart.itemPrice = req.body.itemPrice;
-        cart.itemCurrency = req.body.itemCurrency;
-        cart.itemStatus = req.body.itemStatus;
+        var cartItem = new CartItem();
+        cartItem.barcode = req.body.item.barcode;
+        cartItem.name = req.body.item.name;
+        cartItem.description = req.body.item.description;
+        cartItem.thumb = req.body.item.thumb;
+        cartItem.price = req.body.item.price;
+        cartItem.currency = req.body.item.currency;
+        cartItem.status = req.body.item.status;
 
             // save the shopper
-            cart.save(function(err) {
+            cartItem.save(function(err) {
                 if (err)
                     res.send(err);
 
@@ -319,7 +321,7 @@ router.route('/cart/:shopperCrn')
         });
     })
     .delete(function(req, res) {
-	        Cart.remove({
+	        CartItem.remove({
 	            "shopperCrn": req.params.shopperCrn,
 	            "itemBarcode": req.params.itemBarcode
 	        }, function(err, shopper) {
@@ -338,19 +340,19 @@ router.route('/wishList')
     // create a shopper (accessed at POST http://localhost:8080/api/wishLists)
     .post(function(req, res) {
 
-        var wishList = new WishList();      // create a new instance of the shopper model
-        wishList.shopperCrn = req.body.shopperCrn;
-        wishList.itemBarcode = req.body.itemBarcode;
-        wishList.itemName = req.body.itemName;
-        wishList.itemDescription = req.body.itemDescription;
-        wishList.itemImageUrl = req.body.itemImageUrl;
-        wishList.itemPrice = req.body.itemPrice;
-        wishList.itemCurrency = req.body.itemCurrency;
-        wishList.itemStatus = req.body.itemStatus;
+        var wishListItem = new WishListItem();      // create a new instance of the shopper model
+        wishListItem.shopperCrn = req.body.shopperCrn;
+        wishListItem.barcode = req.body.item.barcode;
+        wishListItem.name = req.body.item.name;
+        wishListItem.description = req.body.item.description;
+        wishListItem.thumb = req.body.item.thumb;
+        wishListItem.price = req.body.item.price;
+        wishListItem.currency = req.body.item.currency;
+        wishListItem.status = req.body.item.status;
 
 
         // save the shopper and check for errors
-        wishList.save(function(err) {
+        wishListItem.save(function(err) {
             if (err)
                 res.send(err);
 
@@ -362,7 +364,7 @@ router.route('/wishList')
 router.route('/wishList/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        WishList.find({"shopperCrn":req.params.shopperCrn}, function(err, items) {
+        WishListItem.find({"shopperCrn":req.params.shopperCrn}, function(err, items) {
             if (err)
                 res.send(err);
 
@@ -373,20 +375,21 @@ router.route('/wishList/:shopperCrn')
     .put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        WishList.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
+        WishListItem.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
 
             if (err)
                 res.send(err);
 
-	    wishList.itemName = req.body.itemName;
-        wishList.itemDescription = req.body.itemDescription;
-        wishList.itemImageUrl = req.body.itemImageUrl;
-        wishList.itemPrice = req.body.itemPrice;
-        wishList.itemCurrency = req.body.itemCurrency;
-        wishList.itemStatus = req.body.itemStatus;
+
+        wishListItem.name = req.body.item.name;
+        wishListItem.description = req.body.item.description;
+        wishListItem.thumb = req.body.item.thumb;
+        wishListItem.price = req.body.item.price;
+        wishListItem.currency = req.body.item.currency;
+        wishListItem.status = req.body.item.status;
 
             // save the shopper
-            wishList.save(function(err) {
+            wishListItem.save(function(err) {
                 if (err)
                     res.send(err);
 
@@ -396,7 +399,7 @@ router.route('/wishList/:shopperCrn')
         });
     })
     .delete(function(req, res) {
-	        WishList.remove({
+	        WishListItem.remove({
 	            "shopperCrn": req.params.shopperCrn,
 	            "itemBarcode": req.params.itemBarcode
 	        }, function(err, shopper) {
