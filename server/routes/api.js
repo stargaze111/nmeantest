@@ -289,9 +289,7 @@ router.route('/cart/:shopperCrn')
             if (err)
                 res.send(err);
 
-            let cartItems = groupArray(items, 'seller.name');
-
-            res.json(cartItems);
+            res.json(items);
 
         });
     })
@@ -368,10 +366,7 @@ router.route('/wishList/:shopperCrn')
             if (err)
                 res.send(err);
 
-
-            let cartItems = groupArray(items, 'seller.name');
-
-            res.json(cartItems);
+				res.json(items);
 
         });
     })
