@@ -262,13 +262,13 @@ router.route('/cart')
 
         var cartItem = new CartItem();      // create a new instance of the shopper model
         cartItem.shopperCrn = req.body.shopperCrn;
-        cartItem.itemBarcode = req.body.item.barcode;
-        cartItem.itemName = req.body.item.name;
-        cartItem.itemDescription = req.body.item.description;
-        cartItem.itemThumb = req.body.item.thumb;
-        cartItem.itemPrice = req.body.item.price;
-        cartItem.itemCurrency = req.body.item.currency;
-        cartItem.itemStatus = req.body.item.status;
+        cartItem.itemBarcode = req.body.itemBarcode;
+        cartItem.itemName = req.body.itemName;
+        cartItem.itemDescription = req.body.itemDescription;
+        cartItem.itemThumb = req.body.itemThumb;
+        cartItem.itemPrice = req.body.itemPrice;
+        cartItem.itemCurrency = req.body.itemCurrency;
+        cartItem.itemStatus = req.body.itemStatus;
 
 
         // save the shopper and check for errors
@@ -301,12 +301,12 @@ router.route('/cart/:shopperCrn')
             if (err)
                 res.send(err);
 
-        cartItem.itemName = req.body.item.name;
-        cartItem.itemDescription = req.body.item.description;
-        cartItem.itemThumb = req.body.item.thumb;
-        cartItem.itemPrice = req.body.item.price;
-        cartItem.itemCurrency = req.body.item.currency;
-        cartItem.itemStatus = req.body.item.status;
+        cartItem.itemName = req.body.itemName;
+        cartItem.itemDescription = req.body.itemDescription;
+        cartItem.itemThumb = req.body.itemThumb;
+        cartItem.itemPrice = req.body.itemPrice;
+        cartItem.itemCurrency = req.body.itemCurrency;
+        cartItem.itemStatus = req.body.itemStatus;
 
             // save the shopper
             cartItem.save(function(err) {
@@ -340,13 +340,13 @@ router.route('/wishList')
 
         var wishListItem = new WishListItem();      // create a new instance of the shopper model
         wishListItem.shopperCrn = req.body.shopperCrn;
-        wishListItem.itemBarcode = req.body.item.barcode;
-        wishListItem.itemName = req.body.item.name;
-        wishListItem.itemDescription = req.body.item.description;
-        wishListItem.itemThumb = req.body.item.thumb;
-        wishListItem.itemPrice = req.body.item.price;
-        wishListItem.itemCurrency = req.body.item.currency;
-        wishListItem.itemStatus = req.body.item.status;
+        wishListItem.itemBarcode = req.body.itemBarcode;
+        wishListItem.itemName = req.body.itemName;
+        wishListItem.itemDescription = req.body.itemDescription;
+        wishListItem.itemThumb = req.body.itemThumb;
+        wishListItem.itemPrice = req.body.itemPrice;
+        wishListItem.itemCurrency = req.body.itemCurrency;
+        wishListItem.itemStatus = req.body.itemStatus;
 
 
         // save the shopper and check for errors
@@ -379,12 +379,12 @@ router.route('/wishList/:shopperCrn')
                 res.send(err);
 
 
-        wishListItem.itemName = req.body.item.name;
-        wishListItem.itemDescription = req.body.item.description;
-        wishListItem.itemThumb = req.body.item.thumb;
-        wishListItem.itemPrice = req.body.item.price;
-        wishListItem.itemCurrency = req.body.item.currency;
-        wishListItem.itemStatus = req.body.item.status;
+        wishListItem.itemName = req.body.itemName;
+        wishListItem.itemDescription = req.body.itemDescription;
+        wishListItem.itemThumb = req.body.itemThumb;
+        wishListItem.itemPrice = req.body.itemPrice;
+        wishListItem.itemCurrency = req.body.itemCurrency;
+        wishListItem.itemStatus = req.body.itemStatus;
 
             // save the shopper
             wishListItem.save(function(err) {
