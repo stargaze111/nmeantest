@@ -3,8 +3,8 @@ var mongoose     = require('mongoose');
 
 var Schema       = mongoose.Schema;
 
-var WishListItemSchema   = new Schema({
-	wishListId : String,
+var CartItemSchema   = new Schema({
+	cartId : String,
 	shopperCrn : String,
 	shopperId : String,
     barcode : String,
@@ -16,4 +16,4 @@ var WishListItemSchema   = new Schema({
     status : String
 });
 
-module.exports = mongoose.model('WishListItem', WishListItemSchema);
+module.exports = mongoose.model('CartItem', CartItemSchema);
