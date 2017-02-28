@@ -4,16 +4,16 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var CartItemSchema   = new Schema({
-	cartId : String,
+	cartItemId : String,
 	shopperCrn : String,
 	shopperId : String,
-    barcode : String,
-    name: String,
-    description : String,
-    thumb : String,
-    price : String,
-    currency : String,
-    status : String
+    itemBarcode : String,
+    itemName: String,
+    itemDescription : String,
+    itemImageUrl : String,
+    itemPrice : String,
+    itemCurrency : String,
+    itemStatus : String,
 });
 
 module.exports = mongoose.model('CartItem', CartItemSchema);

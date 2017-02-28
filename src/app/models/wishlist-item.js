@@ -4,16 +4,15 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var WishListItemSchema   = new Schema({
-	wishListId : String,
 	shopperCrn : String,
 	shopperId : String,
-    barcode : String,
-    name: String,
-    description : String,
-    thumb : String,
-    price : String,
-    currency : String,
-    status : String
+    itemBarcode : String,
+    itemName: String,
+    itemDescription : String,
+    itemImageUrl : String,
+    itemPrice : String,
+    itemCurrency : String,
+    itemStatus : String
 });
 
 module.exports = mongoose.model('WishListItem', WishListItemSchema);
