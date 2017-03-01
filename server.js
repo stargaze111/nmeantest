@@ -30,8 +30,10 @@ app.use('/shopper/email/:email', api);
 app.use('/shopper/:crn', api);
 app.use('/wishList', api);
 app.use('/wishList/:shopperCrn', api);
+app.use('/wishList/:shopperCrn/:itemBarCode', api);
 app.use('/cart', api);
 app.use('/cart/:shopperCrn', api);
+app.use('/cart/:shopperCrn/:itemBarCode', api);
 app.use('/posts', api);
 
 

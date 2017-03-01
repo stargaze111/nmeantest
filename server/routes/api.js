@@ -271,6 +271,13 @@ router.route('/cart')
         cartItem.itemShipping = req.body.itemShipping;
         cartItem.itemStatus = req.body.itemStatus;
 
+        if(cartItem.itemStatus==null||cartItem.itemStatus.trim()==''){
+          cartItem.itemStatus = "PENDING";
+		}
+
+        if(cartItem.itemSummaryStatus==null||cartItem.itemSummaryStatus.trim()==''){
+          cartItem.itemSummaryStatus = "ACTIVE";
+		}
 
         // save the shopper and check for errors
         cartItem.save(function(err) {
@@ -286,15 +293,16 @@ router.route('/cart')
 router.route('/cart/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        CartItem.find({"shopperCrn":req.params.shopperCrn}, function(err, items) {
+        CartItem.find({"shopperCrn":req.params.shopperCrn,"itemStatus":"PENDING"}, function(err, items) {
             if (err)
                 res.send(err);
 
             res.json(items);
 
         });
-    })
-    .put(function(req, res) {
+    });
+
+    router.route('/cart/:shopperCrn/:itemBarcode').put(function(req, res) {
 
         // use our shopper model to find the shopper we want
         CartItem.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, cartItem) {
@@ -309,6 +317,14 @@ router.route('/cart/:shopperCrn')
         cartItem.itemCurrency = req.body.itemCurrency;
         cartItem.itemShipping = req.body.itemShipping;
         cartItem.itemStatus = req.body.itemStatus;
+
+		if(cartItem.itemStatus==null||cartItem.itemStatus.trim()==''){
+          cartItem.itemStatus = "PENDING";
+		}
+
+        if(cartItem.itemSummaryStatus==null||cartItem.itemSummaryStatus.trim()==''){
+          cartItem.itemSummaryStatus = "ACTIVE";
+		}
 
             // save the shopper
             cartItem.save(function(err) {
@@ -351,6 +367,12 @@ router.route('/wishList')
         wishListItem.itemShipping = req.body.itemShipping;
         wishListItem.itemStatus = req.body.itemStatus;
 
+		if(wishListItem.itemStatus==null||wishListItem.itemStatus.trim()==''){
+          wishListItem.itemStatus = "PENDING";
+		}
+        if(wishListItem.itemSummaryStatus==null||wishListItem.itemSummaryStatus.trim()==''){
+          wishListItem.itemSummaryStatus = "ACTIVE";
+		}
 
         // save the shopper and check for errors
         wishListItem.save(function(err) {
@@ -365,15 +387,16 @@ router.route('/wishList')
 router.route('/wishList/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        WishListItem.find({"shopperCrn":req.params.shopperCrn}, function(err, items) {
+        WishListItem.find({"shopperCrn":req.params.shopperCrn,,"itemStatus":"PENDING"}, function(err, items) {
             if (err)
                 res.send(err);
 
 				res.json(items);
 
         });
-    })
-    .put(function(req, res) {
+    });
+
+    router.route('/wishList/:shopperCrn/:itemBarcode').put(function(req, res) {
 
         // use our shopper model to find the shopper we want
         WishListItem.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
@@ -390,6 +413,13 @@ router.route('/wishList/:shopperCrn')
         wishListItem.itemShipping = req.body.itemShipping;
         wishListItem.itemStatus = req.body.itemStatus;
 
+        if(wishListItem.itemStatus==null||wishListItem.itemStatus.trim()==''){
+          wishListItem.itemStatus = "PENDING";
+		}
+
+        if(wishListItem.itemSummaryStatus==null||wishListItem.itemSummaryStatus.trim()==''){
+          wishListItem.itemSummaryStatus = "ACTIVE";
+		}
             // save the shopper
             wishListItem.save(function(err) {
                 if (err)
