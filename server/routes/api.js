@@ -268,6 +268,7 @@ router.route('/cart')
         cartItem.itemThumb = req.body.itemThumb;
         cartItem.itemPrice = req.body.itemPrice;
         cartItem.itemCurrency = req.body.itemCurrency;
+        cartItem.itemShipping = req.body.itemShipping;
         cartItem.itemStatus = req.body.itemStatus;
 
 
@@ -306,6 +307,7 @@ router.route('/cart/:shopperCrn')
         cartItem.itemThumb = req.body.itemThumb;
         cartItem.itemPrice = req.body.itemPrice;
         cartItem.itemCurrency = req.body.itemCurrency;
+        cartItem.itemShipping = req.body.itemShipping;
         cartItem.itemStatus = req.body.itemStatus;
 
             // save the shopper
@@ -346,6 +348,7 @@ router.route('/wishList')
         wishListItem.itemThumb = req.body.itemThumb;
         wishListItem.itemPrice = req.body.itemPrice;
         wishListItem.itemCurrency = req.body.itemCurrency;
+        wishListItem.itemShipping = req.body.itemShipping;
         wishListItem.itemStatus = req.body.itemStatus;
 
 
@@ -384,6 +387,7 @@ router.route('/wishList/:shopperCrn')
         wishListItem.itemThumb = req.body.itemThumb;
         wishListItem.itemPrice = req.body.itemPrice;
         wishListItem.itemCurrency = req.body.itemCurrency;
+        wishListItem.itemShipping = req.body.itemShipping;
         wishListItem.itemStatus = req.body.itemStatus;
 
             // save the shopper

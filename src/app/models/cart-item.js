@@ -9,7 +9,7 @@ var CartItemSchema   = new Schema({
     itemBarcode : String,
     itemName: String,
     itemDescription : String,
-    itemImageUrl : String,
+    itemThumb : String,
     itemPrice : String,
     itemCurrency : String,
     itemStatus : String,
