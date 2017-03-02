@@ -19,11 +19,12 @@ var CartItemSchema   = new Schema({
 });
 
 
+
+module.exports = mongoose.model('CartItem', CartItemSchema);
+
+
 CartItemSchema.path('itemBarcode').validate(function (value, respond) {
-    User.findOne({ itemBarcode: value, itemSummaryStatus : 'ACTIVE' }, function (err, user) {
+    this.model('CartItem').findOne({ itemBarcode: value, itemSummaryStatus : 'ACTIVE' }, function (err, user) {
         if(user) respond(false);
     });
 }, 'The item is already scanned');
-
-
-module.exports = mongoose.model('CartItem', CartItemSchema);
