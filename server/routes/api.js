@@ -386,7 +386,7 @@ router.route('/wishList')
 router.route('/wishList/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        WishListItem.find({"shopperCrn":req.params.shopperCrn,,"itemStatus":"PENDING"}, function(err, items) {
+        WishListItem.find({"shopperCrn":req.params.shopperCrn,"itemStatus":"PENDING"}, function(err, items) {
             if (err)
                 res.send(err);
 
