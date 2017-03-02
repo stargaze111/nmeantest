@@ -34,6 +34,6 @@ ShopperSchema.path('email').validate(function (value, respond) {
 			respond(true);
 		}
     });
-}, 'This email address is already registered');
+}, 'Email address is already registered');
 
 module.exports = mongoose.model('Shopper', ShopperSchema);
