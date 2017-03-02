@@ -48,7 +48,8 @@
     "mongoose":"",
     "mongoose-sequence-plugin":"",
     "crypto":"",
-    "group-array":""
+    "group-array":"",
+    "oauth2-server":""
   },
   "devDependencies": {
     
