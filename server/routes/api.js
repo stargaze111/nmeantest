@@ -55,10 +55,12 @@ router.route('/inventory')
 
         // save the inventory and check for errors
         inventory.save(function(err) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
             res.json({ message: 'Inventory Item created!' });
+		}
         });
 
     })
@@ -66,10 +68,12 @@ router.route('/inventory')
 
 		// get all the inventories (accessed at GET http://localhost:8080/api/inventories)
         Inventory.find(function(err, inventories) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
             res.json(inventories);
+		}
         });
     });
 
@@ -78,9 +82,11 @@ router.route('/inventory/:barcode')
     // get the inventory with that id (accessed at GET http://localhost:8080/api/inventories/:barcode)
     .get(function(req, res) {
         Inventory.find({"itemBarcode":req.params.barcode}, function(err, inventory) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
             res.json(inventory);
+		}
         });
     })
 
@@ -89,19 +95,23 @@ router.route('/inventory/:barcode')
         // use our inventory model to find the inventory we want
         Inventory.find({"itemBarcode":req.params.barcode}, function(err, inventory) {
 
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
             inventory.name = req.body.name;  // update the inventories info
 
             // save the inventory
             inventory.save(function(err) {
-                if (err)
+                if (err){
                     res.send(err);
+				}else{
 
                 res.json({ message: 'Inventory updated!' });
-            });
+			}
 
+            });
+}
         });
     })
 
@@ -109,10 +119,12 @@ router.route('/inventory/:barcode')
 	        Inventory.remove({
 	            _id: req.params.barcode
 	        }, function(err, inventory) {
-	            if (err)
+	            if (err){
 	                res.send(err);
+				}else{
 
 	            res.json({ message: 'Successfully deleted' });
+			}
 	        });
 	    });
 
@@ -138,10 +150,12 @@ router.route('/shopper')
 
         // save the shopper and check for errors
         shopper.save(function(err) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
             res.json({ message: 'shopper Item created!',crn:shopper.crn });
+		}
         });
 
     })
@@ -149,10 +163,12 @@ router.route('/shopper')
 
 		// get all the shoppers (accessed at GET http://localhost:8080/api/shoppers)
         Shopper.find(function(err, shoppers) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
             res.json(shoppers);
+		}
         });
     });
 
@@ -161,9 +177,11 @@ router.route('/shopper/:crn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/shoppers/:crn)
     .get(function(req, res) {
         Shopper.find({"crn":req.params.crn}, function(err, shopper) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
             res.json(shopper);
+		}
         });
     })
 
@@ -172,8 +190,9 @@ router.route('/shopper/:crn')
         // use our shopper model to find the shopper we want
         Shopper.find({"crn":req.params.crn}, function(err, shopper) {
 
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
 	shopper.firstName = req.body.firstName;
         shopper.lastName = req.body.lastName;
@@ -184,11 +203,14 @@ router.route('/shopper/:crn')
 
             // save the shopper
             shopper.save(function(err) {
-                if (err)
+                if (err){
                     res.send(err);
+				}else{
 
                 res.json({ message: 'shopper updated!' });
+			}
             });
+		}
 
         });
     })
@@ -197,10 +219,12 @@ router.route('/shopper/:crn')
 	        Shopper.remove({
 	            _id: req.params.crn
 	        }, function(err, shopper) {
-	            if (err)
+	            if (err){
 	                res.send(err);
+				}else{
 
 	            res.json({ message: 'Successfully deleted' });
+			}
 	        });
 	    });
 
@@ -210,9 +234,11 @@ router.route('/shopper/email/:email')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/shoppers/:email)
     .get(function(req, res) {
         Shopper.find({"email":req.params.email}, function(err, shopper) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
             res.json(shopper);
+		}
         });
     })
 
@@ -221,8 +247,9 @@ router.route('/shopper/email/:email')
         // use our shopper model to find the shopper we want
         Shopper.find({"email":req.params.email}, function(err, shopper) {
 
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
 		shopper.firstName = req.body.firstName;
 		shopper.lastName = req.body.lastName;
@@ -232,11 +259,14 @@ router.route('/shopper/email/:email')
 
             // save the shopper
             shopper.save(function(err) {
-                if (err)
+                if (err){
                     res.send(err);
+				}else{
 
                 res.json({ message: 'shopper updated!' });
+			}
             });
+		}
 
         });
     })
@@ -245,10 +275,12 @@ router.route('/shopper/email/:email')
 	        Shopper.remove({
 	            _id: req.params.email
 	        }, function(err, shopper) {
-	            if (err)
+	            if (err){
 	                res.send(err);
+				}else{
 
 	            res.json({ message: 'Successfully deleted' });
+			}
 	        });
 	    });
 
@@ -281,10 +313,12 @@ router.route('/cart')
 
         // save the shopper and check for errors
         cartItem.save(function(err) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
+			  res.json({ message: 'Cart Item created!' });
+			}
 
-            res.json({ message: 'Cart Item created!' });
         });
 
     });
@@ -294,10 +328,12 @@ router.route('/cart/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
         CartItem.find({"shopperCrn":req.params.shopperCrn,"itemStatus":"PENDING"}, function(err, items) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
             res.json(items);
+		}
 
         });
     });
@@ -307,8 +343,9 @@ router.route('/cart/:shopperCrn')
         // use our shopper model to find the shopper we want
         CartItem.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, cartItem) {
 
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
         cartItem.itemName = req.body.itemName;
         cartItem.itemDescription = req.body.itemDescription;
@@ -328,11 +365,14 @@ router.route('/cart/:shopperCrn')
 
             // save the shopper
             cartItem.save(function(err) {
-                if (err)
+                if (err){
                     res.send(err);
+				}else{
 
                 res.json({ message: 'Cart updated!' });
+			}
             });
+		}
 
         });
     })
@@ -341,10 +381,12 @@ router.route('/cart/:shopperCrn')
 	            "shopperCrn": req.params.shopperCrn,
 	            "itemBarcode": req.params.itemBarcode
 	        }, function(err, shopper) {
-	            if (err)
+	            if (err){
 	                res.send(err);
+				}else{
 
 	            res.json({ message: 'Cart successfully deleted' });
+			}
 	        });
 	    });
 
@@ -375,10 +417,12 @@ router.route('/wishList')
 
         // save the shopper and check for errors
         wishListItem.save(function(err) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
             res.json({ message: 'WishList Item created!' });
+		}
         });
 
     });
@@ -387,10 +431,12 @@ router.route('/wishList/:shopperCrn')
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
         WishListItem.find({"shopperCrn":req.params.shopperCrn,"itemStatus":"PENDING"}, function(err, items) {
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
 				res.json(items);
+			}
 
         });
     });
@@ -400,8 +446,9 @@ router.route('/wishList/:shopperCrn')
         // use our shopper model to find the shopper we want
         WishListItem.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
 
-            if (err)
+            if (err){
                 res.send(err);
+			}else{
 
 
         wishListItem.itemName = req.body.itemName;
@@ -421,11 +468,14 @@ router.route('/wishList/:shopperCrn')
 		}
             // save the shopper
             wishListItem.save(function(err) {
-                if (err)
+                if (err){
                     res.send(err);
+				}else{
 
                 res.json({ message: 'WishList updated!' });
+			}
             });
+		}
 
         });
     })
@@ -434,10 +484,12 @@ router.route('/wishList/:shopperCrn')
 	            "shopperCrn": req.params.shopperCrn,
 	            "itemBarcode": req.params.itemBarcode
 	        }, function(err, shopper) {
-	            if (err)
+	            if (err){
 	                res.send(err);
+				}else{
 
 	            res.json({ message: 'WishList successfully deleted' });
+			}
 	        });
 	    });
 

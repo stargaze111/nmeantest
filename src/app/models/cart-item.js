@@ -24,7 +24,11 @@ module.exports = mongoose.model('CartItem', CartItemSchema);
 
 
 CartItemSchema.path('itemBarcode').validate(function (value, respond) {
-    this.model('CartItem').findOne({ itemBarcode: value, itemSummaryStatus : 'ACTIVE' }, function (err, user) {
-        if(user) respond(false);
+    mongoose.model('CartItem').findOne({ itemBarcode: value, itemSummaryStatus : 'ACTIVE' }, function (err, cartItem) {
+        if(cartItem) {
+			respond(false);
+        }else {
+			respond(true);
+		}
     });
 }, 'The item is already scanned');
