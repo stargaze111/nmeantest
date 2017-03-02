@@ -27,8 +27,12 @@ ShopperSchema.plugin(sequenceGenerator, {
 
 
 ShopperSchema.path('email').validate(function (value, respond) {
-    User.findOne({ email: value }, function (err, user) {
-        if(user) respond(false);
+    mongoose.model('Shopper').findOne({ email: value }, function (err, user) {
+        if(user) {
+			respond(false);
+        }else{
+			respond(true);
+		}
     });
 }, 'This email address is already registered');
 
