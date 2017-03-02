@@ -3,7 +3,7 @@ const router = express.Router();
 var groupArray = require('group-array');
 var mongoose     = require('mongoose');
 
-mongoose.connect('mongodb://heroku_rh8l09kt:lh32impfks5bho8c60ljefcvs9@ds157539.mlab.com:57539/heroku_rh8l09kt');
+mongoose.connect('mongodb://heroku_3r056d7b:esqe01rahl53jsc9oa5m8k6kfd@ds113580.mlab.com:13580/heroku_3r056d7b');
 mongoose.set('debug', true); // turn on debug
 
 
