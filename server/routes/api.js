@@ -5,7 +5,7 @@ const mongoose     = require('mongoose');
 const jwt        = require("jsonwebtoken");
 
 
-mongoose.connect('mongodb://heroku_3r056d7b:esqe01rahl53jsc9oa5m8k6kfd@ds113580.mlab.com:13580/heroku_3r056d7b');
+mongoose.connect('mongodb://heroku_6cgznsmh:re5j5ap6nqhp9q3kqr53hmofcl@ds119250.mlab.com:19250/heroku_6cgznsmh');
 mongoose.set('debug', true); // turn on debug
 
 var config     = require('../../config');
