@@ -41,7 +41,7 @@ console.log('req.url : '+req.url);
 
   } else {
 
-   if(req.url=='/authenticate'){
+   if(req.url=='/authenticate'||req.url=='/shopper'){
      next();
    }else{
 
