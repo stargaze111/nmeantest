@@ -1,23 +1,60 @@
 const express = require('express');
 const router = express.Router();
-var groupArray = require('group-array');
-var mongoose     = require('mongoose');
+const groupArray = require('group-array');
+const mongoose     = require('mongoose');
+const jwt        = require("jsonwebtoken");
+
 
 mongoose.connect('mongodb://heroku_3r056d7b:esqe01rahl53jsc9oa5m8k6kfd@ds113580.mlab.com:13580/heroku_3r056d7b');
 mongoose.set('debug', true); // turn on debug
 
-
+var config     = require('../../config');
 var Inventory     = require('../../src/app/models/inventory');
 var Shopper     = require('../../src/app/models/shopper');
 var CartItem     = require('../../src/app/models/cart-item');
 var WishListItem     = require('../../src/app/models/wishlist-item');
+var User     = require('../../src/app/models/user');
+var bcrypt = require('bcrypt-nodejs');
 
 
-// middleware to use for all requests
 router.use(function(req, res, next) {
-    // do logging
-    console.log('Something is happening.');
-    next(); // make sure we go to the next routes and don't stop here
+
+console.log('req.url : '+req.url);
+
+
+  // check header or url parameters or post parameters for token
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+
+  // decode token
+  if (token) {
+
+    // verifies secret and checks exp
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+
+  } else {
+
+   if(req.url=='/authenticate'){
+     next();
+   }else{
+
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+        success: false,
+        message: 'No token provided.'
+    });
+
+}
+
+  }
 });
 
 
@@ -38,6 +75,47 @@ router.get('/posts', (req, res) => {
       res.status(500).send(error)
     });
 });
+
+
+
+
+router.post('/authenticate', function(req, res) {
+
+  // find the user
+  User.findOne({
+    username: req.body.username
+  }, function(err, user) {
+
+    if (err) throw err;
+
+    if (!user) {
+      res.json({ success: false, message: 'Authentication failed. User not found.' });
+    } else if (user) {
+
+      // check if password matches
+      if (!bcrypt.compareSync(req.body.password,user.password)) {
+        res.json({ success: false, message: 'Authentication failed. Wrong password.' });
+      } else {
+
+        // if user is found and password is right
+        // create a token
+        var token = jwt.sign(user, config.secret, {
+          expiresIn: 1440 // expires in 24 hours
+        });
+
+        // return the information including token as JSON
+        res.json({
+          success: true,
+          message: 'Enjoy your token!',
+          token: token
+        });
+      }
+
+    }
+
+  });
+});
+
 
 
 router.route('/inventory')
@@ -142,11 +220,7 @@ router.route('/shopper')
         shopper.mobilePhone = req.body.mobilePhone;
         shopper.gender = req.body.gender;
         shopper.address = req.body.address;
-        shopper.password = req.body.password;
-
-        var crypto     = require('crypto');
-        shopper.password = crypto.createHash('md5').update(shopper.password).digest("hex");
-
+        //shopper.password = req.body.password;
 
         // save the shopper and check for errors
         shopper.save(function(err) {
@@ -154,9 +228,27 @@ router.route('/shopper')
                 res.send(err);
 			}else{
 
-            res.json({ message: 'shopper Item created!',crn:shopper.crn });
-		}
+                var userModel = new User();
+                userModel.username = req.body.email;
+                userModel.password = req.body.password;
+                userModel.save(function(err, user) {
+                    var token = jwt.sign(user, config.secret);
+
+                        res.json({
+                            status: 'SUCCESS',
+                            token: token
+                        });
+
+                });
+
+
+
+
+		    }
         });
+
+
+
 
     })
     .get(function(req, res) {
@@ -166,9 +258,8 @@ router.route('/shopper')
             if (err){
                 res.send(err);
 			}else{
-
-            res.json(shoppers);
-		}
+            	res.json(shoppers);
+			}
         });
     });
 

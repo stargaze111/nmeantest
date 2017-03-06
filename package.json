@@ -49,7 +49,10 @@
     "mongoose-sequence-plugin":"",
     "crypto":"",
     "group-array":"",
-    "oauth2-server":""
+    "morgan":"",
+    "jsonwebtoken":"",
+    "request":"",
+    "cors":""
   },
   "devDependencies": {
     
