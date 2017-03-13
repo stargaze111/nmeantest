@@ -207,7 +207,6 @@ router.route('/inventory/:barcode')
 	        });
 	    });
 
-
 router.route('/inventory/validate/:barcode')
 
     // get the inventory with that id (accessed at GET http://localhost:8080/api/inventories/:barcode)
@@ -220,7 +219,7 @@ router.route('/inventory/validate/:barcode')
 				            if (err){
 				                res.json(inventory);
 							}else{
-				             res.json({ success: false, message: 'Item is already scanned and added to a cart' });
+				                res.json({ success: false, message: 'Item is already scanned and added to a cart' });
 							}
 
 				        });
