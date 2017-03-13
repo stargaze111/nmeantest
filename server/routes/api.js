@@ -219,7 +219,11 @@ router.route('/inventory/validate/:barcode')
 				            if (err){
 				                res.json(inventory);
 							}else{
-				                res.json({ success: false, message: 'Item is already scanned and added to a cart' });
+								if(items!=null&&items.length>0){
+				                	res.json({ success: false, message: 'Item is already scanned and added to a cart' });
+							    }else{
+									res.json(inventory);
+								}
 							}
 
 				        });
