@@ -544,7 +544,7 @@ router.route('/wishList')
     })
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        WishListItem.find({"shopperCrn":req.decoded.crn,"itemStatus":"PENDING", "wishList":"Y"}, function(err, items) {
+        WishListItem.find({"shopperCrn":req.decoded.crn,"itemStatus":"PENDING"}, function(err, items) {
             if (err){
                 res.send(err);
 			}else{
@@ -559,7 +559,7 @@ router.route('/wishList')
     router.route('/wishList/:itemBarcode').put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        WishListItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode, "wishList":"Y"}, function(err, wishList) {
+        WishListItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
 
             if (err){
                 res.send(err);
@@ -598,8 +598,7 @@ router.route('/wishList')
     .delete(function(req, res) {
 	        WishListItem.remove({
 	            "shopperCrn": req.decoded.crn,
-	            "itemBarcode": req.params.itemBarcode,
-	            "wishList":"Y"
+	            "itemBarcode": req.params.itemBarcode
 	        }, function(err, shopper) {
 	            if (err){
 	                res.send(err);
