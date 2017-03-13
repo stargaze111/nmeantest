@@ -35,6 +35,7 @@ console.log('req.url : '+req.url);
       } else {
         // if everything is good, save to request for use in other routes
         req.decoded = decoded;
+        console.log('req.decoded : '+req.decoded);
         next();
       }
     });
@@ -96,6 +97,8 @@ router.post('/authenticate', function(req, res) {
       if (!bcrypt.compareSync(req.body.password,user.password)) {
         res.json({ success: false, message: 'Authentication failed. Wrong password.' });
       } else {
+
+       console.log('Found User : '+JSON.stringify(user));
 
         // if user is found and password is right
         // create a token
