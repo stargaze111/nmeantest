@@ -234,6 +234,7 @@ router.route('/shopper')
                 var userModel = new User();
                 userModel.username = req.body.email;
                 userModel.password = req.body.password;
+                userModel.crn = shopper.crn;
                 userModel.save(function(err, user) {
                     var token = jwt.sign(user, config.secret);
 

@@ -14,7 +14,8 @@ var UserSchema = new mongoose.Schema({
     required: true
   },
   token: String,
-  facebook: String
+  facebook: String,
+  crn : String
 });
 
 // Execute before each user.save() call
