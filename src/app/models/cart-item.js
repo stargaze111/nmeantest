@@ -16,7 +16,7 @@ var CartItemSchema   = new Schema({
     itemStatus : String,
     itemShipping : String,
     itemSummaryStatus : String,
-    wishlist : String
+    wishList : String
 });
 
 

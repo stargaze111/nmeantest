@@ -35,7 +35,7 @@ console.log('req.url : '+req.url);
       } else {
         // if everything is good, save to request for use in other routes
         req.decoded = decoded;
-        console.log('req.decoded : '+req.decoded);
+        console.log('req.decoded : '+JSON.stringify(req.decoded));
         next();
       }
     });
@@ -170,7 +170,6 @@ router.route('/inventory/:barcode')
 		}
         });
     })
-
     .put(function(req, res) {
 
         // use our inventory model to find the inventory we want
@@ -195,7 +194,6 @@ router.route('/inventory/:barcode')
 }
         });
     })
-
     .delete(function(req, res) {
 	        Inventory.remove({
 	            _id: req.params.barcode
@@ -208,6 +206,25 @@ router.route('/inventory/:barcode')
 			}
 	        });
 	    });
+
+
+router.route('/inventory/validate/:barcode')
+
+    // get the inventory with that id (accessed at GET http://localhost:8080/api/inventories/:barcode)
+    .get(function(req, res) {
+        Inventory.find({"itemBarcode":req.params.barcode}, function(err, inventory) {
+            if (err){
+                res.send(err);
+			}else{
+				        CartItem.find({"itemBarcode":req.params.barcode,"itemStatus":"PENDING", "wishList":"N"}, function(err, items) {
+				            if (err){
+				                res.json(inventory);
+							}else{
+				             res.json({ success: false, message: 'Item is already scanned and added to a cart' });
+						}
+		   }
+        });
+    });
 
 
 //shopper details
@@ -419,7 +436,7 @@ router.route('/cart')
     })
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        CartItem.find({"shopperCrn":req.params.shopperCrn,"itemStatus":"PENDING"}, function(err, items) {
+        CartItem.find({"shopperCrn":req.decoded.crn,"itemStatus":"PENDING", "wishList":"N"}, function(err, items) {
             if (err){
                 res.send(err);
 			}else{
@@ -446,6 +463,7 @@ router.route('/cart')
         cartItem.itemCurrency = req.body.itemCurrency;
         cartItem.itemShipping = req.body.itemShipping;
         cartItem.itemStatus = req.body.itemStatus;
+        cartItem.wishList = "N";
 
 		if(cartItem.itemStatus==null||cartItem.itemStatus.trim()==''){
           cartItem.itemStatus = "PENDING";
@@ -471,7 +489,7 @@ router.route('/cart')
     .delete(function(req, res) {
 	        CartItem.remove({
 	            "shopperCrn": req.decoded.crn,
-	            "itemBarcode": req.params.itemBarcode
+	            "itemBarcode": req.params.itemBarcode, "wishList":"N"
 	        }, function(err, shopper) {
 	            if (err){
 	                res.send(err);
@@ -520,7 +538,7 @@ router.route('/wishList')
     })
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        WishListItem.find({"shopperCrn":req.decoded.crn,"itemStatus":"PENDING"}, function(err, items) {
+        WishListItem.find({"shopperCrn":req.decoded.crn,"itemStatus":"PENDING", "wishList":"Y"}, function(err, items) {
             if (err){
                 res.send(err);
 			}else{
@@ -534,7 +552,7 @@ router.route('/wishList')
     router.route('/wishList/:itemBarcode').put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        WishListItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
+        WishListItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode, "wishList":"Y"}, function(err, wishList) {
 
             if (err){
                 res.send(err);
@@ -572,7 +590,8 @@ router.route('/wishList')
     .delete(function(req, res) {
 	        WishListItem.remove({
 	            "shopperCrn": req.decoded.crn,
-	            "itemBarcode": req.params.itemBarcode
+	            "itemBarcode": req.params.itemBarcode,
+	            "wishList":"Y"
 	        }, function(err, shopper) {
 	            if (err){
 	                res.send(err);
