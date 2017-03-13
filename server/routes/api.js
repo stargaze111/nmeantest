@@ -221,11 +221,12 @@ router.route('/inventory/validate/:barcode')
 				                res.json(inventory);
 							}else{
 				             res.json({ success: false, message: 'Item is already scanned and added to a cart' });
-						}
-		   }
-        });
-    });
+							}
 
+				        });
+           }
+    });
+});
 
 //shopper details
 router.route('/shopper')
@@ -550,6 +551,7 @@ router.route('/wishList')
 
         });
     });
+
 
     router.route('/wishList/:itemBarcode').put(function(req, res) {
 
