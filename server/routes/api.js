@@ -42,7 +42,7 @@ console.log('req.url : '+req.url);
 
   } else {
 
-   if(req.url=='/authenticate'||req.url=='/shopper'||req.url=='/inventory'){
+   if(req.url=='/authenticate'||req.url=='/shopper'||req.url=='/inventory'||req.url=='/inventory/:barcode'){
      next();
    }else{
 
