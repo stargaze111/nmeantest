@@ -9,11 +9,13 @@ var WishListItemSchema   = new Schema({
     itemBarcode : String,
     itemName: String,
     itemDescription : String,
-    itemImageUrl : String,
+    itemThumb : String,
     itemPrice : String,
     itemCurrency : String,
     itemStatus : String,
-    itemShipping : String
+    itemShipping : String,
+    itemSummaryStatus : String,
+    wishList : String
 });
 
 module.exports = mongoose.model('WishListItem', WishListItemSchema);
