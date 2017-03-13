@@ -416,10 +416,7 @@ router.route('/cart')
 
         });
 
-    });
-
-
-router.route('/cart/:shopperCrn')
+    })
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
         CartItem.find({"shopperCrn":req.params.shopperCrn,"itemStatus":"PENDING"}, function(err, items) {
@@ -433,10 +430,10 @@ router.route('/cart/:shopperCrn')
         });
     });
 
-    router.route('/cart/:shopperCrn/:itemBarcode').put(function(req, res) {
+    router.route('/cart/:itemBarcode').put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        CartItem.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, cartItem) {
+        CartItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode}, function(err, cartItem) {
 
             if (err){
                 res.send(err);
@@ -520,9 +517,7 @@ router.route('/wishList')
 		}
         });
 
-    });
-
-router.route('/wishList/:shopperCrn')
+    })
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
         WishListItem.find({"shopperCrn":req.params.shopperCrn,"itemStatus":"PENDING"}, function(err, items) {
@@ -536,7 +531,7 @@ router.route('/wishList/:shopperCrn')
         });
     });
 
-    router.route('/wishList/:shopperCrn/:itemBarcode').put(function(req, res) {
+    router.route('/wishList/:itemBarcode').put(function(req, res) {
 
         // use our shopper model to find the shopper we want
         WishListItem.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
