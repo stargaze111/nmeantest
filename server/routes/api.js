@@ -414,6 +414,7 @@ router.route('/cart')
         cartItem.itemCurrency = req.body.itemCurrency;
         cartItem.itemShipping = req.body.itemShipping;
         cartItem.itemStatus = req.body.itemStatus;
+        cartItem.wishList = "N";
 
         if(cartItem.itemStatus==null||cartItem.itemStatus.trim()==''){
           cartItem.itemStatus = "PENDING";
@@ -517,6 +518,7 @@ router.route('/wishList')
         wishListItem.itemCurrency = req.body.itemCurrency;
         wishListItem.itemShipping = req.body.itemShipping;
         wishListItem.itemStatus = req.body.itemStatus;
+        wishListItem.wishList = "Y";
 
 		if(wishListItem.itemStatus==null||wishListItem.itemStatus.trim()==''){
           wishListItem.itemStatus = "PENDING";
@@ -566,6 +568,7 @@ router.route('/wishList')
         wishListItem.itemCurrency = req.body.itemCurrency;
         wishListItem.itemShipping = req.body.itemShipping;
         wishListItem.itemStatus = req.body.itemStatus;
+
 
         if(wishListItem.itemStatus==null||wishListItem.itemStatus.trim()==''){
           wishListItem.itemStatus = "PENDING";
