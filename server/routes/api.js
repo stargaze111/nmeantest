@@ -388,7 +388,7 @@ router.route('/cart')
     .post(function(req, res) {
 
         var cartItem = new CartItem();      // create a new instance of the shopper model
-        cartItem.shopperCrn = req.body.shopperCrn;
+        cartItem.shopperCrn = req.decoded.crn;
         cartItem.itemBarcode = req.body.itemBarcode;
         cartItem.itemName = req.body.itemName;
         cartItem.itemDescription = req.body.itemDescription;
@@ -470,7 +470,7 @@ router.route('/cart')
     })
     .delete(function(req, res) {
 	        CartItem.remove({
-	            "shopperCrn": req.params.shopperCrn,
+	            "shopperCrn": req.decoded.crn,
 	            "itemBarcode": req.params.itemBarcode
 	        }, function(err, shopper) {
 	            if (err){
@@ -490,7 +490,7 @@ router.route('/wishList')
     .post(function(req, res) {
 
         var wishListItem = new WishListItem();      // create a new instance of the shopper model
-        wishListItem.shopperCrn = req.body.shopperCrn;
+        wishListItem.shopperCrn = req.decoded.crn;
         wishListItem.itemBarcode = req.body.itemBarcode;
         wishListItem.itemName = req.body.itemName;
         wishListItem.itemDescription = req.body.itemDescription;
@@ -520,7 +520,7 @@ router.route('/wishList')
     })
     // get the shopper with that id (accessed at GET http://localhost:8080/api/cart/:shopperCrn)
     .get(function(req, res) {
-        WishListItem.find({"shopperCrn":req.params.shopperCrn,"itemStatus":"PENDING"}, function(err, items) {
+        WishListItem.find({"shopperCrn":req.decoded.crn,"itemStatus":"PENDING"}, function(err, items) {
             if (err){
                 res.send(err);
 			}else{
@@ -534,7 +534,7 @@ router.route('/wishList')
     router.route('/wishList/:itemBarcode').put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        WishListItem.find({"shopperCrn":req.params.shopperCrn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
+        WishListItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
 
             if (err){
                 res.send(err);
@@ -571,7 +571,7 @@ router.route('/wishList')
     })
     .delete(function(req, res) {
 	        WishListItem.remove({
-	            "shopperCrn": req.params.shopperCrn,
+	            "shopperCrn": req.decoded.crn,
 	            "itemBarcode": req.params.itemBarcode
 	        }, function(err, shopper) {
 	            if (err){
