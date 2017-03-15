@@ -443,6 +443,7 @@ router.route('/cart')
 			                  res.json({ message: 'Cart Item created!' });
 			  			}else{
 
+if(wishListItems!=null&&wishListItems[0]!=null&&wishListItems[0]._id!=null){
 			          var wishListItem = new WishListItem();
 			          wishListItem.itemName = req.body.itemName;
 			          wishListItem.itemDescription = req.body.itemDescription;
@@ -469,6 +470,7 @@ router.route('/cart')
 			                  res.json({ message: 'Cart Item created!' });
 			  			}
 			              });
+					  }
 			  		}
 
         });
