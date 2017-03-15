@@ -455,12 +455,13 @@ router.route('/cart')
     router.route('/cart/:itemBarcode').put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        CartItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode}, function(err, cartItem) {
+        CartItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode}, function(err, cartItems) {
 
             if (err){
                 res.send(err);
 			}else{
 
+        var cartItem = cartItems[0];
         cartItem.itemName = req.body.itemName;
         cartItem.itemDescription = req.body.itemDescription;
         cartItem.itemThumb = req.body.itemThumb;
