@@ -444,7 +444,6 @@ router.route('/cart')
 			  			}else{
 
 			          var wishListItem = new WishListItem();
-			          wishListItem._id = wishListItems[0]._id;
 			          wishListItem.itemName = req.body.itemName;
 			          wishListItem.itemDescription = req.body.itemDescription;
 			          wishListItem.itemThumb = req.body.itemThumb;
@@ -462,7 +461,7 @@ router.route('/cart')
 			            wishListItem.itemSummaryStatus = "CLOSED";
 			  		}
 			              // save the shopper
-			              wishListItem.save(function(err) {
+			              WishListItem.update({_id:wishListItems[0]._id},wishListItem,function(err) {
 			                  if (err){
 			                      res.json({ message: 'Cart Item created!' });
 			  				}else{
@@ -502,7 +501,6 @@ router.route('/cart')
 			}else{
 
 		  var cartItem = new CartItem();
-		  cartItem._id = cartItems[0]._id;
         cartItem.itemName = req.body.itemName;
         cartItem.itemDescription = req.body.itemDescription;
         cartItem.itemThumb = req.body.itemThumb;
@@ -520,8 +518,8 @@ router.route('/cart')
           cartItem.itemSummaryStatus = "ACTIVE";
 		}
 
-            // save the shopper
-            cartItem.save(function(err) {
+            // save the cart
+           CartItem.update({_id:cartItem[0]._id},cartItem,function(err) {
                 if (err){
                     res.send(err);
 				}else{
@@ -607,8 +605,7 @@ router.route('/wishList')
                 res.send(err);
 			}else{
 
-		  var wishListItem = new WishListItem();
-		  wishListItem._id = wishListItems[0]._id;
+	    var wishListItem = new WishListItem();
         wishListItem.itemName = req.body.itemName;
         wishListItem.itemDescription = req.body.itemDescription;
         wishListItem.itemThumb = req.body.itemThumb;
@@ -626,7 +623,7 @@ router.route('/wishList')
           wishListItem.itemSummaryStatus = "ACTIVE";
 		}
             // save the shopper
-            wishListItem.save(function(err) {
+            WishListItem.update({_id:wishListItems[0]._id},wishListItem,function(err) {
                 if (err){
                     res.send(err);
 				}else{
