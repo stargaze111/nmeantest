@@ -434,7 +434,46 @@ router.route('/cart')
             if (err){
                 res.send(err);
 			}else{
-			  res.json({ message: 'Cart Item created!' });
+
+
+			          // use our shopper model to find the shopper we want
+			          WishListItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.body.itemBarcode}, function(err, wishListItems) {
+
+			              if (err){
+			                  res.json({ message: 'Cart Item created!' });
+			  			}else{
+
+			          var wishListItem = new WishListItem();
+			          wishListItem._id = wishListItems[0]._id;
+			          wishListItem.itemName = req.body.itemName;
+			          wishListItem.itemDescription = req.body.itemDescription;
+			          wishListItem.itemThumb = req.body.itemThumb;
+			          wishListItem.itemPrice = req.body.itemPrice;
+			          wishListItem.itemCurrency = req.body.itemCurrency;
+			          wishListItem.itemShipping = req.body.itemShipping;
+			          wishListItem.itemStatus = req.body.itemStatus;
+
+
+			          if(wishListItem.itemStatus==null||wishListItem.itemStatus.trim()==''){
+			            wishListItem.itemStatus = "COMPLETE";
+			  		  }
+
+			          if(wishListItem.itemSummaryStatus==null||wishListItem.itemSummaryStatus.trim()==''){
+			            wishListItem.itemSummaryStatus = "CLOSED";
+			  		}
+			              // save the shopper
+			              wishListItem.save(function(err) {
+			                  if (err){
+			                      res.json({ message: 'Cart Item created!' });
+			  				}else{
+
+			                  res.json({ message: 'Cart Item created!' });
+			  			}
+			              });
+			  		}
+
+        });
+
 			}
 
         });
@@ -462,8 +501,8 @@ router.route('/cart')
                 res.send(err);
 			}else{
 
-        var cartItem = cartItems[0];
-        cartItem.itemBarcode = "";
+		  var cartItem = new CartItem();
+		  cartItem._id = cartItems[0]._id;
         cartItem.itemName = req.body.itemName;
         cartItem.itemDescription = req.body.itemDescription;
         cartItem.itemThumb = req.body.itemThumb;
@@ -568,8 +607,8 @@ router.route('/wishList')
                 res.send(err);
 			}else{
 
-        var wishListItem = wishListItems[0];
-        wishListItem.itemBarcode = "";
+		  var wishListItem = new WishListItem();
+		  wishListItem._id = wishListItems[0]._id;
         wishListItem.itemName = req.body.itemName;
         wishListItem.itemDescription = req.body.itemDescription;
         wishListItem.itemThumb = req.body.itemThumb;
