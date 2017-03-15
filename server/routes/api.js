@@ -560,13 +560,13 @@ router.route('/wishList')
     router.route('/wishList/:itemBarcode').put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        WishListItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode}, function(err, wishList) {
+        WishListItem.find({"shopperCrn":req.decoded.crn,"itemBarcode":req.params.itemBarcode}, function(err, wishListItems) {
 
             if (err){
                 res.send(err);
 			}else{
 
-
+        var wishListItem = wishListItems[0];
         wishListItem.itemName = req.body.itemName;
         wishListItem.itemDescription = req.body.itemDescription;
         wishListItem.itemThumb = req.body.itemThumb;
