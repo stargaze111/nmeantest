@@ -361,12 +361,13 @@ router.route('/shopper/email/:email')
     .put(function(req, res) {
 
         // use our shopper model to find the shopper we want
-        Shopper.find({"email":req.params.email}, function(err, shopper) {
+        Shopper.find({"email":req.decoded.crn}, function(err, shopper) {
 
             if (err){
                 res.send(err);
 			}else{
 
+        shopper.crn = req.decoded.crn;
 		shopper.firstName = req.body.firstName;
 		shopper.lastName = req.body.lastName;
 		shopper.mobilePhone = req.body.mobilePhone;
@@ -462,6 +463,7 @@ router.route('/cart')
 			}else{
 
         var cartItem = cartItems[0];
+        cartItem.itemBarcode = "";
         cartItem.itemName = req.body.itemName;
         cartItem.itemDescription = req.body.itemDescription;
         cartItem.itemThumb = req.body.itemThumb;
@@ -567,6 +569,7 @@ router.route('/wishList')
 			}else{
 
         var wishListItem = wishListItems[0];
+        wishListItem.itemBarcode = "";
         wishListItem.itemName = req.body.itemName;
         wishListItem.itemDescription = req.body.itemDescription;
         wishListItem.itemThumb = req.body.itemThumb;
